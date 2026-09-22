@@ -21,6 +21,11 @@ const geistMono = Geist_Mono({
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
   title: {
     default: `${siteConfig.name} | ${siteConfig.title}`,
     template: `%s | ${siteConfig.name}`,
