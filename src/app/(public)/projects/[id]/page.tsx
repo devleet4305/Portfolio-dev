@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { dbConnect } from "@/lib/dbConnect";
 import Project from "@/models/Project";
+import { siteConfig } from "@/config/site";
+import { Types } from "mongoose";
 import { ArrowLeft, ExternalLink, Code, Globe, Layers } from "lucide-react";
 import { GithubIcon } from "@/components/shared/icons";
 import ReactMarkdown from "react-markdown";
@@ -15,18 +17,35 @@ interface Props {
   params: Promise<{ id: string }>;
 }
 
+type ProjectDetail = {
+  _id: string;
+  title: string;
+  shortDescription: string;
+  detailedDescription: string;
+  technologies: string[];
+  liveLink?: string;
+  githubClient?: string;
+  githubServer?: string;
+  coverImage: string;
+  featured: boolean;
+  galleryImages?: string[];
+};
+
 export default async function PublicProjectDetailPage({ params }: Props) {
   const { id } = await params;
 
-  await dbConnect();
-  
-  // Find project by ID
-  let project;
-  try {
-    project = await Project.findById(id);
-  } catch (error) {
-    console.error("Invalid project ID format:", error);
-    notFound();
+  let project: ProjectDetail | undefined = siteConfig.projects.find(
+    (item) => item._id === id,
+  );
+
+  if (!project && Types.ObjectId.isValid(id)) {
+    try {
+      await dbConnect();
+      const databaseProject = await Project.findById(id).lean<ProjectDetail>();
+      project = databaseProject ?? undefined;
+    } catch (error) {
+      console.error("Failed to load project details:", error);
+    }
   }
 
   if (!project) {
