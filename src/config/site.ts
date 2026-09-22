@@ -37,7 +37,7 @@ export const siteConfig = {
       detailedDescription: "A full-stack pet adoption platform providing users with a seamless experience to browse and adopt pets. Built using React, Next.js, Node.js, Express, and MongoDB. Includes pet catalog with filters, detailed pet profiles, adoption management system, user authentication, and responsive dashboard.",
       technologies: ["React.js", "Next.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "JWT"],
       liveLink: "https://client-five-ivory-99.vercel.app/",
-      githubClient: "https://github.com/RAYHAN-HEXA/pet-adopt-client",
+      githubClient: "https://github.com/devleet4305/pet-adoption-shop-client",
       githubServer: "https://github.com/RAYHAN-HEXA/Pet-Adopt-Shop-Server",
       coverImage: "/image/pet adoption.jpeg",
       featured: true,
