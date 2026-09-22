@@ -97,21 +97,18 @@ export function ContactSection({ showBorder = true }: ContactSectionProps) {
     <section
       ref={containerRef}
       id="contact"
-      className={`py-20 px-4 sm:px-6 lg:px-8 bg-background relative overflow-hidden ${
+      className={`section-shell relative overflow-hidden bg-background contact-grid ${
         showBorder ? "border-t border-border/20" : ""
       }`}
     >
-      {/* Background Decorative Glow Blobs */}
-      <div className="absolute top-1/4 left-1/10 w-72 h-72 bg-primary/5 rounded-full blur-3xl -z-10" />
-      <div className="absolute bottom-1/4 right-1/10 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10" />
-
-      <div className="max-w-6xl mx-auto space-y-12">
+      <div className="site-container space-y-12">
         {/* Section Header */}
         <div className="space-y-4 text-center">
-          <h2 className="animate-contact-item text-3xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(235,94,40,0.3)]">
+          <p className="animate-contact-item eyebrow">Let&apos;s work together</p>
+          <h2 className="animate-contact-item section-title">
             Get In Touch
           </h2>
-          <p className="animate-contact-item max-w-2xl mx-auto text-base sm:text-lg text-muted-foreground">
+          <p className="animate-contact-item section-copy mx-auto">
             Have a project in mind or want to discuss a potential collaboration?
             Feel free to drop a message.
           </p>
@@ -120,7 +117,7 @@ export function ContactSection({ showBorder = true }: ContactSectionProps) {
         {/* Contact Container Grid */}
         <div className="grid gap-8 lg:grid-cols-12 items-stretch">
           {/* Left Column: Contact Details */}
-          <div className="lg:col-span-5 flex flex-col justify-between space-y-8 p-6 sm:p-8 rounded-2xl border border-border/40 bg-card/60 backdrop-blur-md shadow-sm animate-contact-item">
+          <div className="surface animate-contact-item flex flex-col justify-between gap-8 lg:col-span-5">
             <div className="space-y-6">
               <h3 className="text-xl font-bold text-foreground">
                 Contact Information
@@ -135,7 +132,7 @@ export function ContactSection({ showBorder = true }: ContactSectionProps) {
                 {/* Phone */}
                 <a
                   href={`tel:${siteConfig.phone}`}
-                  className="flex items-center gap-4 p-3 rounded-xl border border-border/30 bg-background/40 hover:bg-background hover:border-primary/40 hover:-translate-y-0.5 transition-all duration-300 group"
+                  className="group flex items-center gap-4 rounded-lg border border-border/60 bg-background px-3 py-3 transition-colors hover:border-primary/50"
                 >
                   <div className="p-2.5 rounded-lg bg-primary/10 text-primary group-hover:scale-105 transition-transform">
                     <Phone className="size-5" />
@@ -153,7 +150,7 @@ export function ContactSection({ showBorder = true }: ContactSectionProps) {
                 {/* Email */}
                 <a
                   href={`mailto:${siteConfig.email}`}
-                  className="flex items-center gap-4 p-3 rounded-xl border border-border/30 bg-background/40 hover:bg-background hover:border-primary/40 hover:-translate-y-0.5 transition-all duration-300 group"
+                  className="group flex items-center gap-4 rounded-lg border border-border/60 bg-background px-3 py-3 transition-colors hover:border-primary/50"
                 >
                   <div className="p-2.5 rounded-lg bg-primary/10 text-primary group-hover:scale-105 transition-transform">
                     <Mail className="size-5" />
@@ -191,7 +188,7 @@ export function ContactSection({ showBorder = true }: ContactSectionProps) {
                 href={siteConfig.socialLinks.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold shadow-md hover:shadow-lg hover:scale-102 active:scale-98 transition-all duration-300 w-full sm:w-fit cursor-pointer"
+                className="button-primary w-full sm:w-fit"
               >
                 <Calendar className="size-4" />
                 Connect on LinkedIn
@@ -202,7 +199,7 @@ export function ContactSection({ showBorder = true }: ContactSectionProps) {
           {/* Right Column: Contact Form */}
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="lg:col-span-7 flex flex-col justify-between p-6 sm:p-8 rounded-2xl border border-border/40 bg-card/60 backdrop-blur-md shadow-sm space-y-5 animate-contact-item"
+            className="surface animate-contact-item flex flex-col justify-between gap-5 lg:col-span-7"
           >
             <h3 className="text-xl font-bold text-foreground">
               Send a Message
@@ -222,7 +219,7 @@ export function ContactSection({ showBorder = true }: ContactSectionProps) {
                   <input
                     id="name"
                     type="text"
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition duration-200 focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-muted-foreground/40"
+                    className="form-field"
                     placeholder="John Doe"
                     disabled={isSubmitting}
                     {...register("name")}
@@ -245,7 +242,7 @@ export function ContactSection({ showBorder = true }: ContactSectionProps) {
                   <input
                     id="email"
                     type="email"
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition duration-200 focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-muted-foreground/40"
+                    className="form-field"
                     placeholder="john@example.com"
                     disabled={isSubmitting}
                     {...register("email")}
@@ -270,7 +267,7 @@ export function ContactSection({ showBorder = true }: ContactSectionProps) {
                   <input
                     id="phone"
                     type="tel"
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition duration-200 focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-muted-foreground/40"
+                    className="form-field"
                     placeholder="+1 (555) 000-0000"
                     disabled={isSubmitting}
                     {...register("phone")}
@@ -293,7 +290,7 @@ export function ContactSection({ showBorder = true }: ContactSectionProps) {
                   <input
                     id="subject"
                     type="text"
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition duration-200 focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-muted-foreground/40"
+                    className="form-field"
                     placeholder="Project Discussion"
                     disabled={isSubmitting}
                     {...register("subject")}
@@ -317,7 +314,7 @@ export function ContactSection({ showBorder = true }: ContactSectionProps) {
                 <textarea
                   id="message"
                   rows={5}
-                  className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition duration-200 focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-muted-foreground/40 resize-none"
+                  className="form-field min-h-32 resize-y"
                   placeholder="Tell me about your project or inquiry..."
                   disabled={isSubmitting}
                   {...register("message")}
@@ -335,7 +332,7 @@ export function ContactSection({ showBorder = true }: ContactSectionProps) {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold shadow-md hover:shadow-lg hover:scale-101 active:scale-99 disabled:opacity-50 disabled:pointer-events-none transition-all duration-300 cursor-pointer"
+                className="button-primary w-full"
               >
                 {isSubmitting ? (
                   <>

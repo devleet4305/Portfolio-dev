@@ -47,7 +47,7 @@ export function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative flex min-h-[calc(100vh-4rem)] items-center justify-center overflow-hidden px-4 py-16 sm:px-6 lg:px-8"
+      className="section-shell relative flex min-h-[calc(100vh-4rem)] items-center justify-center overflow-hidden"
     >
       {/* Background decoration elements */}
       <div className="absolute top-1/4 left-10 -z-10 size-72 rounded-full bg-primary/10 blur-3xl" />
@@ -55,12 +55,12 @@ export function Hero() {
 
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 md:grid-cols-2">
         {/* Left Column: Text Content */}
-        <div className="flex flex-col justify-center text-center md:text-left space-y-6">
-          <p className="animate-hero-item text-lg font-bold tracking-wider text-primary uppercase">
+        <div className="flex flex-col justify-center space-y-6 text-center md:text-left">
+          <p className="animate-hero-item eyebrow text-sm">
             {"Hi there, I'm"}
           </p>
 
-          <h1 className="animate-hero-item text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="animate-hero-item text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               {siteConfig.name}
             </span>
@@ -70,7 +70,7 @@ export function Hero() {
             {siteConfig.title}
           </h2>
 
-          <p className="animate-hero-item max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="animate-hero-item section-copy max-w-xl">
             Building modern, scalable, and user-focused web applications using React, Next.js, Node.js, and MongoDB.
           </p>
 

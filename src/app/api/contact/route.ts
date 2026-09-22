@@ -1,6 +1,19 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
+function escapeHtml(value: string) {
+  return value.replace(/[&<>"']/g, (character) => {
+    const entities: Record<string, string> = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    };
+    return entities[character];
+  });
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -14,7 +27,19 @@ export async function POST(request: Request) {
       );
     }
 
-    // Configure nodemailer with Gmail service using environment variables
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      return NextResponse.json(
+        { error: "Contact email is not configured. Add EMAIL_USER and EMAIL_PASS to the server environment." },
+        { status: 503 },
+      );
+    }
+
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safePhone = escapeHtml(phone || "Not provided");
+    const safeSubject = escapeHtml(subject);
+    const safeMessage = escapeHtml(message);
+
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -44,24 +69,24 @@ ${message}
           <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
             <tr>
               <td style="padding: 10px 8px; font-weight: bold; border-bottom: 1px solid #f0f0f0; width: 120px; color: #666666;">Name:</td>
-              <td style="padding: 10px 8px; border-bottom: 1px solid #f0f0f0; font-size: 15px;">${name}</td>
+              <td style="padding: 10px 8px; border-bottom: 1px solid #f0f0f0; font-size: 15px;">${safeName}</td>
             </tr>
             <tr>
               <td style="padding: 10px 8px; font-weight: bold; border-bottom: 1px solid #f0f0f0; color: #666666;">Email:</td>
-              <td style="padding: 10px 8px; border-bottom: 1px solid #f0f0f0; font-size: 15px;"><a href="mailto:${email}" style="color: #4F46E5; text-decoration: none;">${email}</a></td>
+              <td style="padding: 10px 8px; border-bottom: 1px solid #f0f0f0; font-size: 15px;"><a href="mailto:${safeEmail}" style="color: #4F46E5; text-decoration: none;">${safeEmail}</a></td>
             </tr>
             <tr>
               <td style="padding: 10px 8px; font-weight: bold; border-bottom: 1px solid #f0f0f0; color: #666666;">Phone:</td>
-              <td style="padding: 10px 8px; border-bottom: 1px solid #f0f0f0; font-size: 15px;">${phone || "Not provided"}</td>
+              <td style="padding: 10px 8px; border-bottom: 1px solid #f0f0f0; font-size: 15px;">${safePhone}</td>
             </tr>
             <tr>
               <td style="padding: 10px 8px; font-weight: bold; border-bottom: 1px solid #f0f0f0; color: #666666;">Subject:</td>
-              <td style="padding: 10px 8px; border-bottom: 1px solid #f0f0f0; font-size: 15px; font-weight: 500;">${subject}</td>
+              <td style="padding: 10px 8px; border-bottom: 1px solid #f0f0f0; font-size: 15px; font-weight: 500;">${safeSubject}</td>
             </tr>
           </table>
           <div style="margin-top: 25px; padding: 20px; background-color: #f9fafb; border-radius: 8px; border-left: 4px solid #4F46E5;">
             <h4 style="margin-top: 0; margin-bottom: 10px; color: #374151; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;">Message Details:</h4>
-            <p style="white-space: pre-wrap; color: #4b5563; margin: 0; font-size: 15px; line-height: 1.7;">${message}</p>
+            <p style="white-space: pre-wrap; color: #4b5563; margin: 0; font-size: 15px; line-height: 1.7;">${safeMessage}</p>
           </div>
           <p style="margin-top: 25px; font-size: 12px; color: #9ca3af; text-align: center; border-top: 1px solid #f0f0f0; padding-top: 15px;">
             This email was sent from the portfolio contact form.
