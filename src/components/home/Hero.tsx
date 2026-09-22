@@ -109,7 +109,7 @@ export function Hero() {
                 height={300}
                 priority
                 onError={() => setImgSrc("/profile.jpg")}
-                className="h-full w-full rounded-full object-cover grayscale-25 group-hover:grayscale-0 transition-all duration-500"
+                className="h-full w-full rounded-full object-cover object-[38%_center] transition-transform duration-500 group-hover:scale-105"
               />
             </div>
           </div>
