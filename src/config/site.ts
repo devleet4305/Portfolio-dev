@@ -38,7 +38,7 @@ export const siteConfig = {
       technologies: ["React.js", "Next.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "JWT"],
       liveLink: "https://client-five-ivory-99.vercel.app/",
       githubClient: "https://github.com/devleet4305/pet-adoption-shop-client",
-      githubServer: "https://github.com/RAYHAN-HEXA/Pet-Adopt-Shop-Server",
+      githubServer: "https://github.com/devleet4305/pet-adoption-shop-server",
       coverImage: "/image/pet adoption.jpeg",
       featured: true,
       status: "completed" as const,
