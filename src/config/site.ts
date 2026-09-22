@@ -23,7 +23,7 @@ export const siteConfig = {
       detailedDescription: "Built with React, Next.js, Node.js, Express, and MongoDB. Features secure JWT authentication, user role management, interactive property search and filtering, real-time booking status, host property management dashboard, and responsive glassmorphic UI.",
       technologies: ["React.js", "Next.js", "Node.js", "Express.js", "MongoDB", "Mongoose", "Tailwind CSS", "JWT"],
       liveLink: "https://property-rental-platform-client.vercel.app/",
-      githubClient: "https://github.com/RAYHAN-HEXA/Property-Rental-Booking-Platform",
+      githubClient: "https://github.com/devleet4305/property-rental-booking-platform",
       githubServer: "https://github.com/RAYHAN-HEXA/Property-Rental-Booking-Platform-server",
       coverImage: "/image/property rental.jpeg",
       featured: true,
