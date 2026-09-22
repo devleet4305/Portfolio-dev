@@ -3,6 +3,7 @@ import { generateToken } from "@/lib/jwt";
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
+import { checkLoginRateLimit, getClientIp } from "@/lib/security";
 
 export async function POST(request: Request) {
   try {
@@ -21,8 +22,20 @@ export async function POST(request: Request) {
       );
     }
 
+    const normalizedEmail = String(email).trim().toLowerCase();
+    const rateLimit = checkLoginRateLimit(`${getClientIp(request)}:${normalizedEmail}`);
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: "Too many login attempts. Please try again later." },
+        {
+          status: 429,
+          headers: { "Retry-After": String(rateLimit.retryAfter) },
+        },
+      );
+    }
+
     // 4. Find user by email and explicitly select password field
-    const user = await User.findOne({ email: email.toLowerCase() }).select(
+    const user = await User.findOne({ email: normalizedEmail }).select(
       "+password",
     );
     if (!user) {

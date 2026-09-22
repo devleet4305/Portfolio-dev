@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/dbConnect";
 import Project from "@/models/Project";
 import { v2 as cloudinary } from "cloudinary";
+import { requireAdmin, validateImageFile } from "@/lib/security";
 
 // Configure Cloudinary
 cloudinary.config({
@@ -28,6 +29,10 @@ export async function GET() {
 // POST: Create and save a new project
 export async function POST(request: Request) {
   try {
+    if (!(await requireAdmin())) {
+      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+    }
+
     const contentType = request.headers.get("content-type") || "";
     let title: string | null = null;
     let shortDescription: string | null = null;
@@ -75,6 +80,13 @@ export async function POST(request: Request) {
         { error: "Title, shortDescription, detailedDescription, technologies, and coverImage are required fields." },
         { status: 400 }
       );
+    }
+
+    if (coverImage instanceof File) {
+      const coverImageError = validateImageFile(coverImage);
+      if (coverImageError) {
+        return NextResponse.json({ error: coverImageError }, { status: 400 });
+      }
     }
 
     await dbConnect();

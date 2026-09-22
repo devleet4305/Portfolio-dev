@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/dbConnect";
 import Project from "@/models/Project";
 import { v2 as cloudinary } from "cloudinary";
+import { requireAdmin, validateImageFile } from "@/lib/security";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -42,6 +43,10 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    if (!(await requireAdmin())) {
+      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+    }
+
     const { id } = await params;
     const contentType = request.headers.get("content-type") || "";
     let title: string | null = null;
@@ -126,6 +131,11 @@ export async function PUT(
 
     // Upload cover image to Cloudinary if a new one is selected
     if (coverImage instanceof File && coverImage.size > 0) {
+      const coverImageError = validateImageFile(coverImage);
+      if (coverImageError) {
+        return NextResponse.json({ error: coverImageError }, { status: 400 });
+      }
+
       const bytes = await coverImage.arrayBuffer();
       const buffer = Buffer.from(bytes);
 
@@ -169,6 +179,10 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    if (!(await requireAdmin())) {
+      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+    }
+
     await dbConnect();
     const { id } = await params;
 

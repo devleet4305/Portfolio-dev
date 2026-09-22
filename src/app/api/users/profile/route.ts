@@ -4,6 +4,7 @@ import { dbConnect } from "@/lib/dbConnect";
 import User from "@/models/User";
 import { verifyToken } from "@/lib/jwt";
 import { v2 as cloudinary } from "cloudinary";
+import { validateImageFile } from "@/lib/security";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -83,6 +84,11 @@ export async function PUT(request: Request) {
     }
 
     if (profileImage && profileImage.size > 0) {
+      const fileError = validateImageFile(profileImage);
+      if (fileError) {
+        return NextResponse.json({ error: fileError }, { status: 400 });
+      }
+
       const bytes = await profileImage.arrayBuffer();
       const buffer = Buffer.from(bytes);
 

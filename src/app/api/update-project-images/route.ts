@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/dbConnect";
 import Project from "@/models/Project";
+import { requireAdmin } from "@/lib/security";
 
 // One-time image URL updates for specific projects
 const PROJECT_IMAGE_UPDATES = {
@@ -11,6 +12,10 @@ const PROJECT_IMAGE_UPDATES = {
 
 export async function POST() {
   try {
+    if (!(await requireAdmin())) {
+      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+    }
+
     await dbConnect();
 
     const results: { title: string; success: boolean; message: string }[] = [];

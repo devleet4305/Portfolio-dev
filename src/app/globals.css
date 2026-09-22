@@ -18,8 +18,8 @@
   --secondary-foreground: oklch(0.4461 0.0263 256.8018);
   --muted: oklch(0.9846 0.0017 247.8389);
   --muted-foreground: oklch(0.551 0.0234 264.3637);
-  --accent: oklch(0.9119 0.0222 243.8174);
-  --accent-foreground: oklch(0.3791 0.1378 265.5222);
+  --accent: var(--primary);
+  --accent-foreground: var(--primary);
   --destructive: oklch(0.6368 0.2078 25.3313);
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(0.9022 0.0052 247.8822);
@@ -78,8 +78,8 @@
   --secondary-foreground: oklch(0.9219 0 0);
   --muted: oklch(0.3095 0.0266 266.7132);
   --muted-foreground: oklch(0.7155 0 0);
-  --accent: oklch(0.338 0.0589 267.5867);
-  --accent-foreground: oklch(0.8823 0.0571 254.1284);
+  --accent: var(--primary);
+  --accent-foreground: var(--primary);
   --destructive: oklch(0.6368 0.2078 25.3313);
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(0.3843 0.0301 269.7337);
@@ -220,7 +220,15 @@
   }
 
   .contact-grid {
-    background-image: linear-gradient(to right, color-mix(in oklab, var(--border) 35%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklab, var(--border) 35%, transparent) 1px, transparent 1px);
+    background-image: linear-gradient(to right, rgb(128 128 128 / 0.12) 1px, transparent 1px), linear-gradient(to bottom, rgb(128 128 128 / 0.12) 1px, transparent 1px);
     background-size: 3rem 3rem;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-to-r,
+  .bg-gradient-to-tr {
+    background-image: none !important;
+    background-color: var(--primary) !important;
   }
 }

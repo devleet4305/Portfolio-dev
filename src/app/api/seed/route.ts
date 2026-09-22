@@ -3,9 +3,14 @@ import { dbConnect } from "@/lib/dbConnect";
 import Project from "@/models/Project";
 import Blog from "@/models/Blog";
 import { siteConfig } from "@/config/site";
+import { requireAdmin } from "@/lib/security";
 
 export async function POST() {
   try {
+    if (!(await requireAdmin())) {
+      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+    }
+
     await dbConnect();
 
     // Clear existing projects and blogs

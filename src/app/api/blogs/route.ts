@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/dbConnect";
 import Blog from "@/models/Blog";
 import { v2 as cloudinary } from "cloudinary";
+import { requireAdmin, validateImageFile } from "@/lib/security";
 
 // Configure Cloudinary
 cloudinary.config({
@@ -30,6 +31,10 @@ export async function GET() {
 // POST: Create and save a new blog post with file upload
 export async function POST(request: Request) {
   try {
+    if (!(await requireAdmin())) {
+      return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+    }
+
     const formData = await request.formData();
     const title = formData.get("title") as string | null;
     const slug = formData.get("slug") as string | null;
@@ -44,6 +49,11 @@ export async function POST(request: Request) {
         { error: "Title, slug, summary, content, and thumbnail are required fields." },
         { status: 400 }
       );
+    }
+
+    const thumbnailError = validateImageFile(thumbnail);
+    if (thumbnailError) {
+      return NextResponse.json({ error: thumbnailError }, { status: 400 });
     }
 
     await dbConnect();
