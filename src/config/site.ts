@@ -24,7 +24,7 @@ export const siteConfig = {
       technologies: ["React.js", "Next.js", "Node.js", "Express.js", "MongoDB", "Mongoose", "Tailwind CSS", "JWT"],
       liveLink: "https://property-rental-platform-client.vercel.app/",
       githubClient: "https://github.com/devleet4305/property-rental-booking-platform",
-      githubServer: "https://github.com/RAYHAN-HEXA/Property-Rental-Booking-Platform-server",
+      githubServer: "https://github.com/devleet4305/property-rental-booking-server",
       coverImage: "/image/property rental.jpeg",
       featured: true,
       status: "completed" as const,
