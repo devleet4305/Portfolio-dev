@@ -51,7 +51,7 @@ export const siteConfig = {
       detailedDescription: "Summer Cart Shop is a modern e-commerce platform providing users with a seamless shopping experience. Built with React, Next.js, Node.js, Express, and MongoDB. Features product catalog with category filters, shopping cart functionality, secure checkout process, order management, and responsive design.",
       technologies: ["React.js", "Next.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "JWT"],
       liveLink: "https://summer-cart-essential-store.vercel.app/",
-      githubClient: "https://github.com/RAYHAN-HEXA/Summer-Cart-Shop",
+      githubClient: "https://github.com/devleet4305/Suncart-Shop",
       githubServer: "",
       coverImage: "/image/summercart.jpeg",
       featured: true,
