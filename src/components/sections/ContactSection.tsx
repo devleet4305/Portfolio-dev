@@ -220,7 +220,6 @@ export function ContactSection({ showBorder = true }: ContactSectionProps) {
                     id="name"
                     type="text"
                     className="form-field"
-                    placeholder="John Doe"
                     disabled={isSubmitting}
                     {...register("name")}
                   />
@@ -243,7 +242,6 @@ export function ContactSection({ showBorder = true }: ContactSectionProps) {
                     id="email"
                     type="email"
                     className="form-field"
-                    placeholder="john@example.com"
                     disabled={isSubmitting}
                     {...register("email")}
                   />
@@ -268,7 +266,6 @@ export function ContactSection({ showBorder = true }: ContactSectionProps) {
                     id="phone"
                     type="tel"
                     className="form-field"
-                    placeholder="+1 (555) 000-0000"
                     disabled={isSubmitting}
                     {...register("phone")}
                   />
@@ -291,7 +288,6 @@ export function ContactSection({ showBorder = true }: ContactSectionProps) {
                     id="subject"
                     type="text"
                     className="form-field"
-                    placeholder="Project Discussion"
                     disabled={isSubmitting}
                     {...register("subject")}
                   />
@@ -315,7 +311,6 @@ export function ContactSection({ showBorder = true }: ContactSectionProps) {
                   id="message"
                   rows={5}
                   className="form-field min-h-32 resize-y"
-                  placeholder="Tell me about your project or inquiry..."
                   disabled={isSubmitting}
                   {...register("message")}
                 />
