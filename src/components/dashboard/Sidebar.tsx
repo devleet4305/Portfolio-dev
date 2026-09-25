@@ -80,7 +80,7 @@ export function Sidebar() {
       <div className="space-y-8">
         <Link href="/" className="block">
           <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-2xl font-extrabold tracking-tight text-transparent">
-            {siteConfig.name}
+            {siteConfig.brandName}
           </span>
         </Link>
 

@@ -1,4 +1,5 @@
 export const siteConfig = {
+  brandName: "TahajibMunna-portfolio",
   name: "Tahajib Munna",
   shortName: "Munna",
   title: "Full-Stack Web Developer",

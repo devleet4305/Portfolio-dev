@@ -16,7 +16,7 @@ export function Footer() {
           {/* Brand Info */}
           <div className="space-y-3 md:max-w-xs">
             <h3 className="text-lg font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              {siteConfig.name}
+              {siteConfig.brandName}
             </h3>
             <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
               {siteConfig.title} focused on building responsive, high-performance web applications with modern tech stacks.
@@ -88,7 +88,7 @@ export function Footer() {
         {/* Footer Bottom Content (Copyright) */}
         <div className="border-t border-border/20 pt-6 flex flex-col sm:flex-row items-center justify-between text-center sm:text-left gap-4">
           <p className="text-xs text-muted-foreground">
-            &copy; {currentYear} {siteConfig.name}. All rights reserved.
+            &copy; {currentYear} {siteConfig.brandName}. All rights reserved.
           </p>
           <p className="text-2xs text-muted-foreground/40">
             Designed & Built with Next.js & Tailwind CSS

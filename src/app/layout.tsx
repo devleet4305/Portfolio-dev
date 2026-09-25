@@ -27,8 +27,8 @@ export const metadata: Metadata = {
     apple: "/logo.png",
   },
   title: {
-    default: `${siteConfig.name} | ${siteConfig.title}`,
-    template: `%s | ${siteConfig.name}`,
+    default: `${siteConfig.brandName} | ${siteConfig.title}`,
+    template: `%s | ${siteConfig.brandName}`,
   },
   description: "Professional developer portfolio of Tahajib Munna, showcasing modern web applications, full-stack projects, technical skills, and development work.",
   keywords: [
@@ -46,9 +46,9 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.name }],
   openGraph: {
     type: "website",
-    title: `Tahajib Munna | Full-Stack Web Developer`,
+    title: `${siteConfig.brandName} | ${siteConfig.title}`,
     description: "Professional developer portfolio of Tahajib Munna, showcasing modern web applications, full-stack projects, technical skills, and development work.",
-    siteName: `${siteConfig.name} Portfolio`,
+    siteName: siteConfig.brandName,
     images: [
       {
         url: "/profile.jpg",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `Tahajib Munna | Full-Stack Web Developer`,
+    title: `${siteConfig.brandName} | ${siteConfig.title}`,
     description: "Professional developer portfolio of Tahajib Munna, showcasing modern web applications, full-stack projects, technical skills, and development work.",
     images: ["/profile.jpg"],
   },

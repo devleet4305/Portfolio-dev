@@ -82,7 +82,7 @@ export function Navbar({ isAuthenticated }: NavbarProps) {
         {/* Left Side: Brand Logo */}
         <Link href="/" className="flex items-center gap-2">
           <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-2xl font-extrabold tracking-tight text-transparent">
-            {siteConfig.name}
+            {siteConfig.brandName}
           </span>
         </Link>
 
