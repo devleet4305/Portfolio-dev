@@ -1,18 +1,12 @@
 "use client";
 
 import { GithubIcon } from "@/components/shared/icons";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight, Code, ExternalLink } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { siteConfig } from "@/config/site";
-
-// Register ScrollTrigger plugin
-gsap.registerPlugin(ScrollTrigger);
 
 interface ProjectType {
   _id: string;
@@ -30,7 +24,6 @@ interface ProjectType {
 }
 
 export function FeaturedProjects() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [projects, setProjects] = useState<ProjectType[]>(siteConfig.projects);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -78,226 +71,144 @@ export function FeaturedProjects() {
     fetchProjects();
   }, []);
 
-  // GSAP ScrollTrigger Stacked Cards Animation using CSS Sticky
-  useGSAP(
-    () => {
-      const wrappers = gsap.utils.toArray<HTMLElement>(".card-wrapper");
-      if (wrappers.length === 0) return;
-
-      wrappers.forEach((wrapper, i) => {
-        // Don't animate the very last card
-        if (i === wrappers.length - 1) return;
-
-        const innerCard = wrapper.querySelector(".project-inner-card");
-
-        gsap.to(innerCard, {
-          scale: 0.9,
-          opacity: 0,
-          yPercent: -10, // Moves slightly up as it fades
-          ease: "none",
-          scrollTrigger: {
-            trigger: wrapper,
-            start: "top top", // When this wrapper hits the top
-            end: "bottom top", // When the NEXT wrapper hits the top
-            scrub: true, // Tied perfectly to scroll bar
-          },
-        });
-      });
-    },
-    { scope: containerRef, dependencies: [projects, isLoading] },
-  );
-
   return (
     <section
-      ref={containerRef}
       id="featured-projects"
-      className="relative w-full"
+      aria-labelledby="featured-projects-title"
+      className="section-shell"
     >
-      {/* Section Header */}
-      <div className="w-full text-center px-4 pt-24 pb-4">
-        <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(235,94,40,0.3)] mb-4">
-          Featured Projects
-        </h2>
-        <p className="text-muted-foreground mt-3 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-          A curated selection of my recent full-stack applications, showcasing
-          modern architectures, creative problem-solving, and AI-assisted
-          workflows.
-        </p>
-      </div>
-
-      {/* Decorative Glow Blobs */}
-      <div className="absolute top-1/4 left-1/10 w-80 h-80 bg-primary/5 rounded-full blur-3xl -z-10" />
-      <div className="absolute bottom-1/4 right-1/10 w-80 h-80 bg-accent/5 rounded-full blur-3xl -z-10" />
-
-      {/* Dynamic Content */}
-      {isLoading ? (
-        /* Loading Skeleton Card */
-        <div className="h-screen w-full flex items-center justify-center p-4 md:p-10 pt-16">
-          <div className="w-full max-w-6xl h-[80vh] bg-card/60 backdrop-blur-md border border-border/40 rounded-3xl shadow-2xl flex flex-col md:flex-row overflow-hidden animate-pulse">
-            <div className="w-full md:w-1/2 h-48 sm:h-64 md:h-full bg-muted" />
-            <div className="w-full md:w-1/2 p-6 sm:p-8 md:p-12 flex flex-col justify-center space-y-4">
-              <div className="h-6 w-24 bg-muted rounded-full" />
-              <div className="h-8 w-2/3 bg-muted rounded-md" />
-              <div className="space-y-2">
-                <div className="h-4 w-full bg-muted rounded-md" />
-                <div className="h-4 w-5/6 bg-muted rounded-md" />
-              </div>
-              <div className="flex gap-2">
-                <div className="h-6 w-16 bg-muted rounded-full" />
-                <div className="h-6 w-16 bg-muted rounded-full" />
-              </div>
-              <div className="flex gap-3 pt-2">
-                <div className="h-10 w-28 bg-muted rounded-xl" />
-                <div className="h-10 w-28 bg-muted rounded-xl" />
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : projects.length === 0 ? (
-        /* Empty State */
-        <div className="h-screen w-full flex items-center justify-center p-4">
-          <div className="text-center py-20 px-10 border border-border/40 rounded-3xl bg-card/60 backdrop-blur-md max-w-lg w-full">
-            <p className="text-muted-foreground font-medium text-lg">
-              No featured projects available yet.
+      <div className="site-container">
+        <header className="mb-10 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="eyebrow">Selected work</p>
+            <h2 id="featured-projects-title" className="section-title mt-2">
+              Featured projects
+            </h2>
+            <p className="section-copy mt-3">
+              A selection of full-stack applications and the technologies behind them.
             </p>
           </div>
-        </div>
-      ) : (
-        /* Stacked Cards Stack using CSS Sticky */
-        <div className="w-full">
-          {projects.map((project, index) => {
-            return (
+          <Link
+            href="/projects"
+            className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            All projects
+            <ArrowRight aria-hidden="true" className="size-4" />
+          </Link>
+        </header>
+
+        {isLoading ? (
+          <div
+            aria-label="Loading featured projects"
+            aria-busy="true"
+            className="grid gap-6 md:grid-cols-2"
+          >
+            {[1, 2].map((item) => (
               <div
-                key={project._id}
-                className="card-wrapper sticky top-0 h-screen w-full flex items-center justify-center p-4 md:p-10"
-                style={{ zIndex: index + 1 }}
+                key={item}
+                className="overflow-hidden rounded-lg border border-border bg-card"
               >
-                {/* Visual Glassmorphic Border Card */}
-                <div
-                  className={`project-inner-card relative w-full max-w-6xl h-[80vh] bg-card border border-border/50 rounded-3xl shadow-2xl flex flex-col overflow-hidden ${
-                    index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                  }`}
-                >
-                  {/* Left Side: Cover Image */}
-                  <div className="relative w-full md:w-1/2 h-44 sm:h-60 md:h-full flex-shrink-0 bg-muted">
-                    {/* Status Badge */}
-                    <div className="absolute top-4 left-4 z-20">
-                      <span
-                        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold shadow-lg border ${
-                          project.status === "ongoing"
-                            ? "border-amber-500/30 text-amber-500"
-                            : "border-emerald-500/30 text-emerald-500"
-                        } bg-background/80 backdrop-blur-md`}
-                      >
-                        <span
-                          className={`w-2 h-2 rounded-full ${
-                            project.status === "ongoing"
-                              ? "bg-amber-500 animate-pulse"
-                              : "bg-emerald-500"
-                          }`}
-                        ></span>
-                        {project.status === "ongoing" ? "Ongoing" : "Completed"}
-                      </span>
-                    </div>
-
-                    {project.coverImage ? (
-                      <Image
-                        src={project.coverImage}
-                        alt={project.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover transition-transform duration-500 hover:scale-102"
-                        priority={index === 0}
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                        No Image Available
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Right Side: Details */}
-                  <div className="w-full md:w-1/2 p-6 sm:p-8 md:p-12 flex flex-col justify-between space-y-4 overflow-y-auto">
-                    <div className="space-y-4">
-                      {/* Badge */}
-                      <div>
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20">
-                          {project.category || "Full Stack"}
-                        </span>
-                      </div>
-
-                      {/* Title */}
-                      <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
-                        {project.title}
-                      </h3>
-
-                      {/* Description */}
-                      <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                        {project.shortDescription}
-                      </p>
-
-                      {/* Technology Pills */}
-                      <div className="flex flex-wrap gap-2 pt-1">
-                        {project.technologies.slice(0, 6).map((tech) => (
-                          <span
-                            key={tech}
-                            className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-muted text-muted-foreground"
-                          >
-                            <Code className="size-3" />
-                            {tech}
-                          </span>
-                        ))}
-                        {project.technologies.length > 6 && (
-                          <span className="text-xs text-muted-foreground self-center font-medium pl-1">
-                            +{project.technologies.length - 6} more
-                          </span>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Actions Row */}
-                    <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-border/20">
-                      <div className="flex flex-wrap gap-3">
-                        {project.liveLink && (
-                          <a
-                            href={project.liveLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center gap-1.5 px-4.5 py-2.5 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-semibold text-xs shadow-md hover:shadow-lg hover:scale-102 active:scale-98 transition-all duration-300 cursor-pointer"
-                          >
-                            <ExternalLink className="size-3.5" />
-                            Live Preview
-                          </a>
-                        )}
-                        {project.githubClient && (
-                          <a
-                            href={project.githubClient}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center gap-1.5 px-4.5 py-2.5 rounded-xl border border-border/60 bg-card/60 backdrop-blur-md text-muted-foreground hover:text-foreground hover:border-border font-semibold text-xs shadow-sm hover:scale-102 active:scale-98 transition-all duration-300 cursor-pointer"
-                          >
-                            <GithubIcon className="size-3.5" />
-                            GitHub
-                          </a>
-                        )}
-                      </div>
-
-                      {/* Details Link */}
-                      <Link
-                        href={`/projects/${project._id}`}
-                        className="inline-flex items-center justify-center gap-1 text-xs font-bold text-primary hover:text-accent transition-colors"
-                      >
-                        Full Details
-                        <ArrowRight className="size-3.5" />
-                      </Link>
-                    </div>
-                  </div>
+                <div className="aspect-video animate-pulse bg-muted" />
+                <div className="space-y-4 p-6">
+                  <div className="h-6 w-2/3 animate-pulse rounded bg-muted" />
+                  <div className="h-4 w-full animate-pulse rounded bg-muted" />
+                  <div className="h-4 w-4/5 animate-pulse rounded bg-muted" />
                 </div>
               </div>
-            );
-          })}
-        </div>
-      )}
+            ))}
+          </div>
+        ) : projects.length === 0 ? (
+          <p className="rounded-lg border border-border bg-card px-6 py-12 text-center text-muted-foreground">
+            No featured projects available yet.
+          </p>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2">
+            {projects.map((project, index) => (
+              <article
+                key={project._id}
+                className="flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card"
+              >
+                <div className="relative aspect-video bg-muted">
+                  {project.coverImage ? (
+                    <Image
+                      src={project.coverImage}
+                      alt={`${project.title} project preview`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      priority={index === 0}
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
+                      Preview unavailable
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex flex-1 flex-col gap-5 p-5 sm:p-6">
+                  <div>
+                    <p className="text-xs font-semibold text-primary">
+                      {project.category || "Full Stack"}
+                    </p>
+                    <h3 className="mt-2 text-xl font-semibold leading-snug text-foreground">
+                      {project.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                      {project.shortDescription}
+                    </p>
+                  </div>
+
+                  <ul
+                    aria-label={`${project.title} technologies`}
+                    className="flex flex-wrap gap-2"
+                  >
+                    {project.technologies.slice(0, 5).map((technology) => (
+                      <li
+                        key={technology}
+                        className="rounded-md bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground"
+                      >
+                        {technology}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-border pt-4">
+                    {project.liveLink && (
+                      <a
+                        href={project.liveLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex min-h-9 items-center gap-2 text-sm font-semibold text-primary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      >
+                        Live demo
+                        <ExternalLink aria-hidden="true" className="size-4" />
+                      </a>
+                    )}
+                    {project.githubClient && (
+                      <a
+                        href={project.githubClient}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex min-h-9 items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      >
+                        <GithubIcon className="size-4" />
+                        Source code
+                      </a>
+                    )}
+                    <Link
+                      href={`/projects/${project._id}`}
+                      className="ml-auto inline-flex min-h-9 items-center gap-2 text-sm font-semibold text-foreground hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    >
+                      Case study
+                      <ArrowRight aria-hidden="true" className="size-4" />
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 }

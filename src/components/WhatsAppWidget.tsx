@@ -9,10 +9,10 @@ export function WhatsAppWidget() {
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
       title="Chat on WhatsApp"
-      className="fixed bottom-6 right-6 z-40 inline-flex h-12 items-center gap-2 rounded-full bg-[#25D366] px-4 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"
+      className="fixed bottom-4 right-4 z-40 inline-flex size-12 items-center justify-center rounded-full bg-[#25D366] text-sm font-semibold text-white shadow-md transition-colors hover:bg-[#20bd5a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 sm:bottom-6 sm:right-6 sm:h-12 sm:w-auto sm:gap-2 sm:px-4"
     >
-      <MessageCircle className="size-6" />
-      <span>WhatsApp</span>
+      <MessageCircle aria-hidden="true" className="size-5" />
+      <span className="hidden sm:inline">WhatsApp</span>
     </a>
   );
 }

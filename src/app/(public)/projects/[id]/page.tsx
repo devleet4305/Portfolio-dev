@@ -59,7 +59,7 @@ export default async function PublicProjectDetailPage({ params }: Props) {
         <div>
           <Link
             href="/projects"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            className="inline-flex min-h-9 items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             <ArrowLeft className="size-4" />
             Back to Projects
@@ -69,8 +69,8 @@ export default async function PublicProjectDetailPage({ params }: Props) {
         {/* Project Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pb-6 border-b border-border/40">
           <div className="space-y-2">
-            <div className="flex items-center gap-3">
-              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+            <div className="flex flex-wrap items-center gap-3">
+              <h1 className="text-3xl font-semibold leading-tight text-foreground sm:text-4xl">
                 {project.title}
               </h1>
               {project.featured && (
@@ -91,7 +91,7 @@ export default async function PublicProjectDetailPage({ params }: Props) {
                 href={project.liveLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-primary to-accent px-4 text-sm font-semibold text-white shadow-md hover:opacity-90 transition-all duration-200"
+                className="button-primary h-10 rounded-md px-4"
               >
                 <Globe className="size-4" />
                 Live Demo
@@ -103,7 +103,7 @@ export default async function PublicProjectDetailPage({ params }: Props) {
                 href={project.githubClient}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-border bg-card px-4 text-sm font-semibold text-foreground shadow-sm hover:bg-muted transition-all duration-200"
+                className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-border bg-card px-4 text-sm font-semibold text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 <GithubIcon className="size-4" />
                 GitHub Client
@@ -114,7 +114,7 @@ export default async function PublicProjectDetailPage({ params }: Props) {
                 href={project.githubServer}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-border bg-card px-4 text-sm font-semibold text-foreground shadow-sm hover:bg-muted transition-all duration-200"
+                className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-border bg-card px-4 text-sm font-semibold text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 <GithubIcon className="size-4" />
                 GitHub Server
@@ -124,32 +124,33 @@ export default async function PublicProjectDetailPage({ params }: Props) {
         </div>
 
         {/* Full-Width Cover Image Container */}
-        <div className="w-full overflow-hidden rounded-2xl border border-border/40 bg-muted/10 shadow-sm flex items-center justify-center p-4 sm:p-6">
+        <div className="flex w-full items-center justify-center overflow-hidden rounded-lg border border-border bg-muted p-3 sm:p-5">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={project.coverImage}
-            alt={project.title}
-            className="max-h-[60vh] md:max-h-[70vh] w-auto max-w-full object-contain rounded-xl shadow-lg border border-border/20"
+            alt={`${project.title} project preview`}
+            loading="lazy"
+            className="max-h-[60vh] w-auto max-w-full rounded-md object-contain md:max-h-[70vh]"
           />
         </div>
 
         {/* Technologies Box (Full-Width Sibling below Image) */}
-        <div className="rounded-xl border border-border/50 bg-card p-6 shadow-sm space-y-4 w-full">
-          <h3 className="text-sm font-bold text-foreground uppercase tracking-wider flex items-center gap-2 pb-3 border-b border-border/40">
+        <section aria-labelledby="project-technologies" className="w-full border-y border-border py-6">
+          <h2 id="project-technologies" className="eyebrow flex items-center gap-2">
             <Code className="size-4 text-primary" />
             Technologies
-          </h3>
+          </h2>
           <div className="flex flex-wrap gap-2.5">
             {project.technologies.map((tech: string) => (
               <span
                 key={tech}
-                className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-semibold bg-muted text-muted-foreground border border-border hover:bg-muted/70 transition-colors"
+                className="inline-flex items-center rounded-md border border-border bg-muted px-3 py-1.5 text-xs font-medium text-muted-foreground"
               >
                 {tech}
               </span>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Project Details Description & Gallery Split */}
         <div className="grid gap-8 md:grid-cols-3">
@@ -159,7 +160,7 @@ export default async function PublicProjectDetailPage({ params }: Props) {
             <div className="space-y-4">
               <h2 className="text-xl font-bold tracking-tight text-foreground flex items-center gap-2">
                 <Layers className="size-5 text-primary" />
-                Project Description
+                Project overview
               </h2>
               <div className="prose prose-stone dark:prose-invert max-w-none text-foreground/90 leading-relaxed">
                 <ReactMarkdown

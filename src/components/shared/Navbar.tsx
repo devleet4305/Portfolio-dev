@@ -81,7 +81,7 @@ export function Navbar({ isAuthenticated }: NavbarProps) {
       <div className="mx-auto flex max-w-7xl h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Left Side: Brand Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-2xl font-extrabold tracking-tight text-transparent">
+          <span className="text-xl font-semibold tracking-tight text-foreground">
             {siteConfig.name}
           </span>
         </Link>
@@ -94,6 +94,7 @@ export function Navbar({ isAuthenticated }: NavbarProps) {
               <Link
                 key={link.label}
                 href={link.href}
+                aria-current={isActive ? "page" : undefined}
                 className={`text-sm font-medium transition-colors hover:text-primary ${
                   isActive ? "text-primary font-semibold" : "text-muted-foreground"
                 }`}
@@ -109,8 +110,8 @@ export function Navbar({ isAuthenticated }: NavbarProps) {
           {/* Bare Theme Toggle Icon */}
           <button
             onClick={toggleTheme}
-            className="text-muted-foreground hover:text-foreground cursor-pointer transition-colors p-1"
-            aria-label="Toggle Theme"
+            className="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            aria-label="Toggle theme"
           >
             {mounted && (theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)) ? (
               <Sun className="size-5" />
@@ -121,7 +122,7 @@ export function Navbar({ isAuthenticated }: NavbarProps) {
 
           <Link
             href="/#contact"
-            className="inline-flex h-9 items-center justify-center rounded-full bg-gradient-to-r from-primary to-accent-foreground px-5 text-sm font-semibold text-white shadow-sm hover:opacity-90 hover:shadow-md hover:scale-102 active:scale-98 transition-all duration-300 cursor-pointer"
+            className="button-primary h-9 rounded-md px-4"
           >
             Hire Me
           </Link>
@@ -131,8 +132,8 @@ export function Navbar({ isAuthenticated }: NavbarProps) {
         <div className="flex md:hidden items-center gap-4">
           <button
             onClick={toggleTheme}
-            className="text-muted-foreground hover:text-foreground cursor-pointer transition-colors p-1"
-            aria-label="Toggle Theme"
+            className="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            aria-label="Toggle theme"
           >
             {mounted && (theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)) ? (
               <Sun className="size-5" />
@@ -143,8 +144,10 @@ export function Navbar({ isAuthenticated }: NavbarProps) {
 
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-muted-foreground hover:text-foreground cursor-pointer p-1"
-            aria-label="Toggle Mobile Menu"
+            className="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-navigation"
           >
             {isMobileMenuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
           </button>
@@ -153,7 +156,7 @@ export function Navbar({ isAuthenticated }: NavbarProps) {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-border/40 bg-background/95 backdrop-blur-lg animate-in fade-in slide-in-from-top-4 duration-200">
+        <div id="mobile-navigation" className="md:hidden border-t border-border bg-background">
           <div className="space-y-1 px-4 py-4 pb-6">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
@@ -162,6 +165,7 @@ export function Navbar({ isAuthenticated }: NavbarProps) {
                   key={link.label}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
+                  aria-current={isActive ? "page" : undefined}
                   className={`block rounded-md px-3 py-2 text-base font-medium transition-colors hover:bg-muted ${
                     isActive ? "text-primary bg-muted" : "text-muted-foreground"
                   }`}
@@ -175,7 +179,7 @@ export function Navbar({ isAuthenticated }: NavbarProps) {
               <Link
                 href="/#contact"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex w-full items-center justify-center rounded-full bg-gradient-to-r from-primary to-accent-foreground py-2.5 text-sm font-semibold text-white shadow-sm hover:opacity-90 transition-all duration-300"
+                className="button-primary h-11 w-full rounded-md"
               >
                 Hire Me
               </Link>

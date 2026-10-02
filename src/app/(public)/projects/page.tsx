@@ -100,32 +100,38 @@ export default function PublicProjectsPage() {
   return (
     <div
       ref={containerRef}
-      className="min-h-screen py-16 px-4 sm:px-6 lg:px-8 bg-background"
+      className="section-shell bg-background"
     >
-      <div className="max-w-5xl mx-auto space-y-12">
+      <div className="site-container space-y-10">
         {/* Header */}
-        <div className="space-y-4 text-center">
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            My Projects
+        <div className="space-y-3 border-b border-border pb-6">
+          <p className="eyebrow">Selected work</p>
+          <h1 className="section-title">
+            Projects
           </h1>
-          <p className="max-w-2xl mx-auto text-lg text-muted-foreground">
-            A showcase of my recent engineering work, applications, and
-            open-source contributions.
+          <p className="section-copy">
+            Full-stack applications, technical decisions, and project details.
           </p>
         </div>
 
         {/* Filter Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-3">
+        <div
+          role="group"
+          aria-label="Filter projects by category"
+          className="flex flex-wrap gap-2"
+        >
           {CATEGORIES.map((cat) => {
             const isActive = activeCategory === cat;
             return (
               <button
                 key={cat}
+                type="button"
+                aria-pressed={isActive}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 text-sm font-semibold rounded-full border transition-all duration-300 cursor-pointer ${
+                className={`min-h-10 rounded-md border px-4 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                   isActive
-                    ? "bg-primary text-white border-primary shadow-md scale-105"
-                    : "bg-card border-border/60 text-muted-foreground hover:text-foreground hover:border-border"
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-card text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {cat}
@@ -141,7 +147,7 @@ export default function PublicProjectsPage() {
             {[1, 2, 3, 4].map((num) => (
               <div
                 key={num}
-                className="overflow-hidden rounded-2xl border border-border/40 bg-card/60 backdrop-blur-md shadow-sm p-0 space-y-4 animate-pulse"
+                className="overflow-hidden rounded-lg border border-border bg-card"
               >
                 <div className="aspect-video w-full bg-muted" />
                 <div className="p-6 space-y-4">
@@ -160,18 +166,16 @@ export default function PublicProjectsPage() {
           </div>
         ) : filteredProjects.length === 0 ? (
           /* Centered Sleek Empty State */
-          <div className="text-center py-20 border border-border/50 rounded-2xl bg-card">
-            <p className="text-muted-foreground font-medium text-lg">
-              No projects found.
-            </p>
-          </div>
+          <p className="rounded-lg border border-border bg-card px-6 py-12 text-center text-muted-foreground">
+            No projects found in this category.
+          </p>
         ) : (
           /* Projects Grid */
-          <div className="grid gap-8 md:grid-cols-2">
-            {filteredProjects.map((project) => (
+          <div className="grid gap-6 md:grid-cols-2">
+            {filteredProjects.map((project, index) => (
               <div
                 key={project._id}
-                className="project-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/40 bg-card/60 backdrop-blur-md shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-border opacity-0"
+                className="project-card group relative flex flex-col justify-between overflow-hidden rounded-lg border border-border bg-card shadow-sm transition-shadow hover:shadow-md"
               >
                 <div>
                   {/* Cover Image */}
@@ -199,11 +203,11 @@ export default function PublicProjectsPage() {
                     {project.coverImage ? (
                       <Image
                         src={project.coverImage}
-                        alt={project.title}
+                        alt={`${project.title} project preview`}
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-103"
-                        priority
+                        className="object-cover"
+                        priority={index === 0}
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-muted-foreground">
@@ -216,15 +220,15 @@ export default function PublicProjectsPage() {
                   <div className="p-6 space-y-4">
                     <div className="space-y-2">
                       <div className="flex items-center justify-between gap-2">
-                        <h3 className="text-xl font-bold tracking-tight text-foreground truncate">
+                        <h2 className="text-xl font-semibold leading-snug text-foreground">
                           {project.title}
-                        </h3>
+                        </h2>
                         <div className="flex gap-1.5 flex-shrink-0">
-                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-2xs font-semibold bg-muted text-muted-foreground border border-border/60">
+                          <span className="inline-flex items-center rounded-md border border-border px-2 py-0.5 text-xs font-medium text-muted-foreground">
                             {project.category || "Full Stack"}
                           </span>
                           {project.featured && (
-                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-2xs font-semibold bg-primary/10 text-primary border border-primary/20">
+                            <span className="inline-flex items-center rounded-md border border-primary/30 px-2 py-0.5 text-xs font-medium text-primary">
                               Featured
                             </span>
                           )}
@@ -240,7 +244,7 @@ export default function PublicProjectsPage() {
                       {project.technologies.slice(0, 5).map((tech: string) => (
                         <span
                           key={tech}
-                          className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-muted-foreground"
+                          className="inline-flex items-center gap-1 rounded-md bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground"
                         >
                           <Code className="size-3" />
                           {tech}
@@ -259,7 +263,7 @@ export default function PublicProjectsPage() {
                 <div className="p-6 pt-0 flex items-center justify-between border-t border-border/40 mt-4">
                   <Link
                     href={`/projects/${project._id}`}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-primary/80 transition-colors"
+                    className="inline-flex min-h-9 items-center gap-1.5 text-sm font-semibold text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   >
                     View Details
                     <ArrowRight className="size-3.5" />
@@ -271,8 +275,8 @@ export default function PublicProjectsPage() {
                         href={project.githubClient}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-all duration-200"
-                        title="GitHub Repository"
+                        aria-label={`View ${project.title} source code on GitHub`}
+                        className="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       >
                         <GithubIcon className="size-4.5" />
                       </a>
@@ -282,8 +286,8 @@ export default function PublicProjectsPage() {
                         href={project.liveLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-all duration-200"
-                        title="Live Preview"
+                        aria-label={`Open ${project.title} live demo`}
+                        className="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       >
                         <ExternalLink className="size-4.5" />
                       </a>
