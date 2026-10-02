@@ -12,7 +12,7 @@ export const siteConfig = {
     linkedin: "https://www.linkedin.com/in/tahajib-munna-9a3986358/",
     whatsapp: "https://wa.me/8801962864801",
   },
-  profileImage: "/portfolio.jpg",
+  profileImage: "/portfolio2.jpg",
 
   projects: [
     {

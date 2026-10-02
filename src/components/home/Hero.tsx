@@ -43,17 +43,29 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="mx-auto w-full max-w-xs sm:max-w-sm">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-border bg-card shadow-lg">
-            <Image
-              src={siteConfig.profileImage}
-              alt={`Portrait of ${siteConfig.name}`}
-              fill
-              sizes="(max-width: 768px) 80vw, 380px"
-              priority
-              className="object-cover object-[38%_center]"
-            />
+        <div className="relative mx-auto w-full max-w-[18rem] sm:max-w-[21rem]">
+          <div
+            aria-hidden="true"
+            className="absolute -inset-3 rounded-full border border-primary/30"
+          />
+          <div className="relative rounded-full bg-gradient-to-br from-primary/80 via-border to-primary/20 p-[2px] shadow-xl">
+            <div className="rounded-full bg-background p-2">
+              <div className="relative aspect-square overflow-hidden rounded-full ring-1 ring-border">
+                <Image
+                  src={siteConfig.profileImage}
+                  alt={`Portrait of ${siteConfig.name}`}
+                  fill
+                  sizes="(max-width: 640px) 288px, 336px"
+                  priority
+                  className="scale-[1.45] object-cover object-[50%_62%] origin-[50%_62%]"
+                />
+              </div>
+            </div>
           </div>
+          <span
+            aria-hidden="true"
+            className="absolute right-[8%] top-[12%] size-3 rounded-full border-2 border-background bg-primary"
+          />
         </div>
       </div>
     </section>

@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     siteName: `${siteConfig.name} Portfolio`,
     images: [
       {
-        url: "/portfolio.jpg",
+        url: "/portfolio2.jpg",
         width: 1200,
         height: 630,
         alt: `Tahajib Munna Portfolio`,
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Tahajib Munna | Full-Stack Web Developer`,
     description: "Professional developer portfolio of Tahajib Munna, showcasing modern web applications, full-stack projects, technical skills, and development work.",
-    images: ["/portfolio.jpg"],
+    images: ["/portfolio2.jpg"],
   },
 };
 
