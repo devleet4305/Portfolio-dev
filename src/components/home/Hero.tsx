@@ -3,26 +3,26 @@
 import { FolderGit2, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { siteConfig } from "@/config/site";
 
 export function Hero() {
-  const [imgSrc, setImgSrc] = useState(siteConfig.profileImage);
-
   return (
     <section
       aria-labelledby="hero-title"
-      className="section-shell flex min-h-[calc(100svh-4rem)] items-center"
+      className="hero-atmosphere section-shell flex min-h-[calc(100svh-4rem)] items-center"
     >
       <div className="site-container grid w-full grid-cols-1 items-center gap-12 md:grid-cols-[1.2fr_0.8fr]">
         <div className="mx-auto max-w-2xl text-center md:mx-0 md:text-left">
-          <p className="eyebrow">{siteConfig.name}</p>
+          <p className="eyebrow">Hello, I&apos;m</p>
           <h1
             id="hero-title"
-            className="mt-4 text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl"
+            className="mt-4 text-5xl font-bold leading-tight text-foreground sm:text-6xl lg:text-7xl"
           >
-            {siteConfig.title}
+            {siteConfig.name}
           </h1>
+          <p className="mt-3 text-xl font-semibold text-primary sm:text-2xl">
+            {siteConfig.title}
+          </p>
           <p className="section-copy mt-6">
             I build responsive, user-focused web applications with React,
             Next.js, Node.js, and MongoDB.
@@ -46,12 +46,11 @@ export function Hero() {
         <div className="mx-auto w-full max-w-xs sm:max-w-sm">
           <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-border bg-card shadow-lg">
             <Image
-              src={imgSrc}
+              src={siteConfig.profileImage}
               alt={`Portrait of ${siteConfig.name}`}
               fill
               sizes="(max-width: 768px) 80vw, 380px"
               priority
-              onError={() => setImgSrc("/profile.jpg")}
               className="object-cover object-[38%_center]"
             />
           </div>

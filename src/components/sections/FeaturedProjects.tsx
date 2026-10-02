@@ -1,12 +1,17 @@
 "use client";
 
 import { GithubIcon } from "@/components/shared/icons";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { siteConfig } from "@/config/site";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface ProjectType {
   _id: string;
@@ -24,6 +29,7 @@ interface ProjectType {
 }
 
 export function FeaturedProjects() {
+  const stackRef = useRef<HTMLDivElement>(null);
   const [projects, setProjects] = useState<ProjectType[]>(siteConfig.projects);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -71,8 +77,38 @@ export function FeaturedProjects() {
     fetchProjects();
   }, []);
 
+  useGSAP(
+    () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      const wrappers = gsap.utils.toArray<HTMLElement>(
+        ".project-card-wrapper",
+        stackRef.current,
+      );
+
+      wrappers.slice(0, -1).forEach((wrapper) => {
+        const card = wrapper.querySelector<HTMLElement>(".project-card");
+        if (!card) return;
+
+        gsap.to(card, {
+          scale: 0.94,
+          opacity: 0.3,
+          ease: "none",
+          scrollTrigger: {
+            trigger: wrapper,
+            start: "top top+=64",
+            end: "bottom top+=64",
+            scrub: true,
+          },
+        });
+      });
+    },
+    { scope: stackRef, dependencies: [projects, isLoading] },
+  );
+
   return (
     <section
+      ref={stackRef}
       id="featured-projects"
       aria-labelledby="featured-projects-title"
       className="section-shell"
@@ -122,13 +158,15 @@ export function FeaturedProjects() {
             No featured projects available yet.
           </p>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="relative">
             {projects.map((project, index) => (
-              <article
+              <div
                 key={project._id}
-                className="flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card"
+                className="project-card-wrapper sticky top-16 flex min-h-[calc(100svh-4rem)] items-center py-6"
+                style={{ zIndex: index + 1 }}
               >
-                <div className="relative aspect-video bg-muted">
+                <article className="project-card grid w-full max-w-6xl overflow-hidden rounded-lg border border-border bg-card shadow-md md:grid-cols-2">
+                <div className="relative aspect-video bg-muted md:aspect-auto md:min-h-[30rem]">
                   {project.coverImage ? (
                     <Image
                       src={project.coverImage}
@@ -204,7 +242,8 @@ export function FeaturedProjects() {
                     </Link>
                   </div>
                 </div>
-              </article>
+                </article>
+              </div>
             ))}
           </div>
         )}

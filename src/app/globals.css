@@ -207,6 +207,12 @@
     @apply max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg;
   }
 
+  .hero-atmosphere {
+    background-image:
+      radial-gradient(ellipse at 76% 48%, color-mix(in oklab, var(--primary) 14%, transparent), transparent 46%),
+      radial-gradient(ellipse at 18% 82%, color-mix(in oklab, var(--accent) 9%, transparent), transparent 42%);
+  }
+
   .surface {
     @apply rounded-xl border border-border/70 bg-card p-6 shadow-sm sm:p-8;
   }

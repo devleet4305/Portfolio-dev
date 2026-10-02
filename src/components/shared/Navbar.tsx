@@ -81,7 +81,7 @@ export function Navbar({ isAuthenticated }: NavbarProps) {
       <div className="mx-auto flex max-w-7xl h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Left Side: Brand Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-xl font-semibold tracking-tight text-foreground">
+          <span className="text-xl font-semibold tracking-tight text-primary">
             {siteConfig.name}
           </span>
         </Link>
