@@ -1,15 +1,16 @@
-"use client";
-
-import { FolderGit2, Mail } from "lucide-react";
+import { ArrowDown, FolderGit2, Mail, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
+import { GithubIcon, LinkedinIcon } from "@/components/shared/icons";
+
+const skills = ["React", "Next.js", "TypeScript", "Node.js", "MongoDB"];
 
 export function Hero() {
   return (
     <section
       aria-labelledby="hero-title"
-      className="hero-atmosphere section-shell flex min-h-[calc(100svh-4rem)] items-center"
+      className="hero-atmosphere section-shell relative flex min-h-[calc(100svh-4rem)] items-center pb-24"
     >
       <div className="site-container grid w-full grid-cols-1 items-center gap-12 md:grid-cols-[1.2fr_0.8fr]">
         <div className="mx-auto max-w-2xl text-center md:mx-0 md:text-left">
@@ -24,9 +25,23 @@ export function Hero() {
             {siteConfig.title}
           </p>
           <p className="section-copy mt-6">
-            I build responsive, user-focused web applications with React,
-            Next.js, Node.js, and MongoDB.
+            I turn ideas into polished, responsive web applications—from the
+            first interface to the backend.
           </p>
+
+          <ul
+            aria-label="Technologies I work with"
+            className="mt-6 flex flex-wrap justify-center gap-2 md:justify-start"
+          >
+            {skills.map((skill) => (
+              <li
+                key={skill}
+                className="rounded-full border border-border/80 bg-background/70 px-3 py-1.5 text-xs font-medium text-muted-foreground"
+              >
+                {skill}
+              </li>
+            ))}
+          </ul>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 md:justify-start">
             <Link href="/projects" className="button-primary">
@@ -41,9 +56,30 @@ export function Hero() {
               Contact me
             </Link>
           </div>
+
+          <div className="mt-6 flex items-center justify-center gap-4 md:justify-start">
+            <Link
+              href={siteConfig.socialLinks.github}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${siteConfig.name} on GitHub (opens in a new tab)`}
+              className="rounded-md p-2 text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <GithubIcon aria-hidden="true" className="size-5" />
+            </Link>
+            <Link
+              href={siteConfig.socialLinks.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${siteConfig.name} on LinkedIn (opens in a new tab)`}
+              className="rounded-md p-2 text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <LinkedinIcon aria-hidden="true" className="size-5" />
+            </Link>
+          </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[18rem] sm:max-w-[21rem]">
+        <div className="relative mx-auto mb-4 w-full max-w-[18rem] sm:max-w-[21rem]">
           <div
             aria-hidden="true"
             className="absolute -inset-3 rounded-full border border-primary/30"
@@ -66,8 +102,19 @@ export function Hero() {
             aria-hidden="true"
             className="absolute right-[8%] top-[12%] size-3 rounded-full border-2 border-background bg-primary"
           />
+          <div className="absolute -bottom-4 left-1/2 inline-flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full border border-border/80 bg-background/90 px-4 py-2 text-sm font-medium text-foreground shadow-lg backdrop-blur">
+            <MapPin aria-hidden="true" className="size-4 text-primary" />
+            {siteConfig.location}
+          </div>
         </div>
       </div>
+      <Link
+        href="#tech-stack"
+        className="absolute bottom-5 left-1/2 inline-flex -translate-x-1/2 items-center gap-2 rounded-full px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        Explore my work
+        <ArrowDown aria-hidden="true" className="size-4" />
+      </Link>
     </section>
   );
 }
