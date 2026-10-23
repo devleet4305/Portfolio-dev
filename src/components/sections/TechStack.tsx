@@ -259,7 +259,7 @@ export function TechStack() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-primary/2 rounded-full blur-3xl -z-10" />
 
       {/* Premium Section Title */}
-      <div className="text-center mb-12 sm:mb-16">
+      <div data-motion-reveal className="text-center mb-12 sm:mb-16">
         <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent mb-3 drop-shadow-[0_0_15px_rgba(235,94,40,0.3)]">
           Skills & Architecture
         </h2>

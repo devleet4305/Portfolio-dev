@@ -13,7 +13,10 @@ export function Hero() {
       className="hero-atmosphere section-shell relative flex min-h-[calc(100svh-4rem)] items-center pb-24"
     >
       <div className="site-container grid w-full grid-cols-1 items-center gap-12 md:grid-cols-[1.2fr_0.8fr]">
-        <div className="mx-auto max-w-2xl text-center md:mx-0 md:text-left">
+        <div
+          data-motion-hero-copy
+          className="mx-auto max-w-2xl text-center md:mx-0 md:text-left"
+        >
           <p className="eyebrow">Hello, I&apos;m</p>
           <h1
             id="hero-title"
@@ -79,7 +82,10 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="relative mx-auto mb-4 w-full max-w-[18rem] sm:max-w-[21rem]">
+        <div
+          data-motion-hero-visual
+          className="relative mx-auto mb-4 w-full max-w-[18rem] sm:max-w-[21rem]"
+        >
           <div
             aria-hidden="true"
             className="absolute -inset-3 rounded-full border border-primary/30"

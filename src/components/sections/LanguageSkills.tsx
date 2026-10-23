@@ -22,7 +22,7 @@ export function LanguageSkills() {
       id="language-skills"
       className="py-16 sm:py-24 w-full max-w-6xl mx-auto px-4 sm:px-6"
     >
-      <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16">
+      <div data-motion-reveal className="max-w-3xl mx-auto text-center mb-12 sm:mb-16">
         <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-primary/10 text-primary mb-5">
           <Languages className="size-6" aria-hidden="true" />
         </div>
@@ -34,10 +34,14 @@ export function LanguageSkills() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
+      <div
+        data-motion-stagger
+        className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto"
+      >
         {LANGUAGE_SKILLS.map((language) => (
           <div
             key={language.name}
+            data-motion-item
             className="p-5 sm:p-6 rounded-xl border border-border/70 bg-card/70 shadow-sm"
           >
             <div className="flex items-start justify-between gap-4 mb-5">
@@ -54,7 +58,7 @@ export function LanguageSkills() {
         ))}
       </div>
 
-      <div className="max-w-3xl mx-auto mt-4">
+      <div data-motion-reveal className="max-w-3xl mx-auto mt-4">
         <a
           href={IELTS_SCORE_LINK}
           target="_blank"

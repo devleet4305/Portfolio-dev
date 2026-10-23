@@ -9,7 +9,7 @@ export function ResumeSection() {
       id="resume"
       className="py-16 sm:py-24 w-full max-w-6xl mx-auto px-4 sm:px-6"
     >
-      <div className="max-w-3xl mx-auto rounded-2xl border border-border/70 bg-card/70 p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+      <div data-motion-reveal className="max-w-3xl mx-auto rounded-2xl border border-border/70 bg-card/70 p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
         <div className="flex items-start gap-4">
           <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
             <FileText className="size-6" aria-hidden="true" />

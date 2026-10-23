@@ -114,7 +114,7 @@ export function FeaturedProjects() {
       className="section-shell"
     >
       <div className="site-container">
-        <header className="mb-10 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
+        <header data-motion-reveal className="mb-10 flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="eyebrow">Selected work</p>
             <h2 id="featured-projects-title" className="section-title mt-2">

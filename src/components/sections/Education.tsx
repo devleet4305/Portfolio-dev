@@ -116,7 +116,7 @@ export function Education() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-primary/5 rounded-full blur-3xl -z-10" />
 
       {/* Section Title */}
-      <div className="text-center mb-16 sm:mb-20">
+      <div data-motion-reveal className="text-center mb-16 sm:mb-20">
         <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent mb-3 drop-shadow-[0_0_15px_rgba(235,94,40,0.3)]">
           Education & Journey
         </h2>
