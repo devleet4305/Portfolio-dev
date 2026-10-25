@@ -87,7 +87,10 @@ export function Navbar({ isAuthenticated }: NavbarProps) {
         </Link>
 
         {/* Center: Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav
+          aria-label="Main navigation"
+          className="hidden md:flex items-center gap-1 rounded-full border border-border/60 bg-muted/30 p-1"
+        >
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -95,8 +98,10 @@ export function Navbar({ isAuthenticated }: NavbarProps) {
                 key={link.label}
                 href={link.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  isActive ? "text-primary font-semibold" : "text-muted-foreground"
+                className={`rounded-full px-3 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+                  isActive
+                    ? "bg-background text-primary font-semibold shadow-sm"
+                    : "text-muted-foreground"
                 }`}
               >
                 {link.label}
